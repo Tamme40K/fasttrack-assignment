@@ -13,6 +13,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -56,7 +57,7 @@ class HolidaysServiceTest {
     }
 
     /**
-     * Test if a series of valid holidays can be scheduled
+     * Test if a series of valid holidays can be scheduled and check the result based on the status
      */
     @Test
     void scheduleHolidayJustEnoughTimeBetweenHolidays() {
@@ -84,11 +85,11 @@ class HolidaysServiceTest {
                 Instant.now().plus(7, ChronoUnit.DAYS)
         );
 
-        assertEquals(Status.SCHEDULED.toString(), scheduled.getStatus(), "End date should not be close enough to the following holiday's start date for a failure!");
+        assertEquals(Status.SCHEDULED.toString(), scheduled.getStatus(), "End date should not be too close to the current date for a failure!");
     }
 
     /**
-     * Test if a series of invalid holidays can't be scheduled
+     * Test if a series of invalid holidays can't be scheduled and check the result based on the status
      */
     @Test
     void scheduleHolidayNotEnoughTimeBetweenHolidays() {
@@ -114,5 +115,43 @@ class HolidaysServiceTest {
         );
 
         assertEquals(Status.ARCHIVED.toString(), scheduled.getStatus(), "Start date should be too close to current date for a success!");
+    }
+
+    /**
+     * Test a successful and a failed cancellation attempt and check the result based on the status
+     */
+    @Test
+    void cancelHolidayJustFarEnoughFromHolidayStartDate() {
+        Holiday cancellable = new Holiday (
+                "Secret meetup",
+                "klm567099",
+                Instant.now().plus(5, ChronoUnit.DAYS).plus(5, ChronoUnit.SECONDS),
+                Instant.now().plus(7, ChronoUnit.DAYS),
+                Status.SCHEDULED
+        );
+
+        when(holidaysRepository.findByHolidayId(UUID.fromString(cancellable.getHolidayId()))).thenReturn(cancellable);
+
+        Holiday holiday = holidaysService.cancelHoliday(cancellable.getHolidayId());
+
+        assertEquals(Status.ARCHIVED.toString(), holiday.getStatus(), "The cancellation attempt should be just far enough from the holiday start date, so it would be ARCHIVED!");
+    }
+
+    @Test
+    void cancelHolidayTooCloseToHolidayStartDate() {
+        Holiday cancellable = new Holiday (
+                "Secret meetup",
+                "klm567099",
+                Instant.now().plus(4, ChronoUnit.DAYS),
+                Instant.now().plus(5, ChronoUnit.DAYS),
+                Status.SCHEDULED
+        );
+
+        when(holidaysRepository.findByHolidayId(UUID.fromString(cancellable.getHolidayId()))).thenReturn(cancellable);
+
+        Holiday holiday = holidaysService.cancelHoliday(cancellable.getHolidayId());
+
+        assertEquals(Status.SCHEDULED.toString(), holiday.getStatus(), "The cancellation attempt should be too close to the holiday start date, so it remains SCHEDULED!");
+
     }
 }

@@ -39,8 +39,8 @@ public class HolidaysApi {
     }
 
     @DeleteMapping("/cancel")
-    public ResponseEntity<String> cancelHoliday() {
-        return new ResponseEntity<>("FIXME", HttpStatus.OK);
+    public ResponseEntity<Holiday> cancelHoliday(@RequestParam String holidayId) {
+        return new ResponseEntity<>(holidaysService.cancelHoliday(holidayId), HttpStatus.OK);
     }
 
     @PatchMapping("/update")

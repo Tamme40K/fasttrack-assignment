@@ -75,7 +75,10 @@ public class Holiday {
     }
 
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

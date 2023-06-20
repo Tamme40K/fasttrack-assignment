@@ -13,7 +13,16 @@ public class EmployeeService {
 
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
-        employeeRepository.save(new Employee("klm123456", "Clarissa"));
+
+        /* Populate the Employee table with some employees */
+        addEmployee("klm123456", "Clarissa");
+        addEmployee("klm654321", "Anita");
+        addEmployee("klm666666", "Myrtle");
+        addEmployee("klm567099", "Cloud");
+    }
+
+    public void addEmployee(String employeeId, String name) {
+        employeeRepository.save(new Employee(employeeId, name));
     }
 
     public List<Employee> list() {

@@ -1,13 +1,14 @@
 package com.airfranceklm.fasttrack.assignment.controller;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 
 import com.airfranceklm.fasttrack.assignment.service.HolidaysService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.airfranceklm.fasttrack.assignment.resources.Holiday;
 
@@ -21,9 +22,30 @@ public class HolidaysApi {
         this.holidaysService = holidaysService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Holiday>> getHolidays() {
-        return new ResponseEntity<>(holidaysService.list(), HttpStatus.OK);
+    @GetMapping("/overview")
+    public ResponseEntity<List<Holiday>> getHolidaysByEmployee(@RequestParam String employeeId) {
+        return new ResponseEntity<>(holidaysService.findHolidaysByEmployeeId(employeeId), HttpStatus.OK);
+    }
+
+    @PostMapping("/schedule")
+    @ResponseBody
+    public ResponseEntity<Holiday> scheduleHoliday(@RequestBody Map<String, String> json) {
+        String label = json.get("label");
+        String employeeId = json.get("employeeId");
+        String startOfHoliday = json.get("startOfHoliday");
+        String endOfHoliday = json.get("endOfHoliday");
+
+        return new ResponseEntity<>(holidaysService.scheduleHoliday(label, employeeId, Instant.parse(startOfHoliday), Instant.parse(endOfHoliday)), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/cancel")
+    public ResponseEntity<String> cancelHoliday() {
+        return new ResponseEntity<>("FIXME", HttpStatus.OK);
+    }
+
+    @PatchMapping("/update")
+    public ResponseEntity<String> editHoliday() {
+        return new ResponseEntity<>("FIXME", HttpStatus.OK);
     }
 
 }

@@ -54,11 +54,28 @@ public class Holiday {
 
     public Holiday() {}
 
+    public String getHolidayId() {
+        return this.holidayId.toString();
+    }
+
     public String getLabel() {
         return this.label;
+    }
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public Instant getStartOfHoliday() {
+        return this.startOfHoliday;
+    }
+
+    public Instant getEndOfHoliday() {
+        return endOfHoliday;
     }
 
     public String getStatus() {
         return this.status;
     }
+
 }

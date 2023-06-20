@@ -12,4 +12,6 @@ public interface HolidaysRepository extends JpaRepository<Holiday, Long> {
     List<Holiday> findByEmployeeId(String employeeId);
 
     Holiday findByHolidayId(UUID holidayId);
+
+    void deleteByHolidayId(UUID holidayId);
 }

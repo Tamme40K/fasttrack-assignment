@@ -28,7 +28,6 @@ public class HolidaysApi {
     }
 
     @PostMapping("/schedule")
-    @ResponseBody
     public ResponseEntity<Holiday> scheduleHoliday(@RequestBody Map<String, String> json) {
         String label = json.get("label");
         String employeeId = json.get("employeeId");

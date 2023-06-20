@@ -5,6 +5,7 @@ import com.airfranceklm.fasttrack.assignment.resources.Holiday;
 import com.airfranceklm.fasttrack.assignment.resources.Status;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -70,13 +71,14 @@ public class HolidaysService {
      * @param holidayId Identifier for the holiday
      * @return The holiday with an updated status
      */
+    @Transactional
     public Holiday cancelHoliday(String holidayId) {
 
-        Holiday holiday = findHolidayByUuid(holidayId);
+        Holiday holiday = findByHolidayId(holidayId);
 
         /* Check for at least 5 working days before the start of the holiday */
         if (holiday.getStartOfHoliday().getEpochSecond() > Instant.now().plus(5, ChronoUnit.DAYS).getEpochSecond()) {
-            holidaysRepository.delete(holiday);
+            holidaysRepository.deleteByHolidayId(UUID.fromString(holidayId));
             holiday.setStatus(Status.ARCHIVED.toString());
         }
 
@@ -87,7 +89,7 @@ public class HolidaysService {
         return holidaysRepository.findByEmployeeId(employeeId);
     }
 
-    public Holiday findHolidayByUuid(String holidayId) {
+    public Holiday findByHolidayId(String holidayId) {
         return holidaysRepository.findByHolidayId(UUID.fromString(holidayId));
     }
 }

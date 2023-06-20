@@ -15,10 +15,7 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
 
         /* Populate the Employee table with some employees */
-        addEmployee("klm123456", "Clarissa");
-        addEmployee("klm654321", "Anita");
-        addEmployee("klm666666", "Myrtle");
-        addEmployee("klm567099", "Cloud");
+        addEmployee("klm567099", "Clarissa");
     }
 
     public void addEmployee(String employeeId, String name) {

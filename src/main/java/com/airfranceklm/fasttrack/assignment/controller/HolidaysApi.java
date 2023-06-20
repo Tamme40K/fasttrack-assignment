@@ -14,6 +14,7 @@ import com.airfranceklm.fasttrack.assignment.resources.Holiday;
 
 @Controller
 @RequestMapping("/holidays")
+@CrossOrigin(origins = "http://localhost:4200")
 public class HolidaysApi {
 
     private final HolidaysService holidaysService;

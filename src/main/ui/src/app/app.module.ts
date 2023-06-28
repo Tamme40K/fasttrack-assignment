@@ -10,13 +10,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { HolidayFormComponent } from './holiday-form/holiday-form.component';
 import {HolidaysService} from "./holidays.service";
 import { HolidayDeleteComponent } from './holiday-delete/holiday-delete.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HolidaysListComponent,
     HolidayFormComponent,
-    HolidayDeleteComponent
+    HolidayDeleteComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

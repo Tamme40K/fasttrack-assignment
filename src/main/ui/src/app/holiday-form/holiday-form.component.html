@@ -1,0 +1,53 @@
+<div class="card my-5">
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #holidayForm="ngForm">
+
+      <div class="form-group">
+        <label for="label">label</label>
+        <input type="text" [(ngModel)]="holiday.label"
+               class="form-control"
+               id="label"
+               name="label"
+               placeholder="Enter holiday label"
+               required #label="ngModel">
+      <div [hidden]="!label.pristine" class="alert alert-danger">Label is required</div>
+      </div>
+
+      <div class="form-group">
+        <label for="employeeId">Employee ID</label>
+        <input type="text" [(ngModel)]="holiday.employeeId"
+               class="form-control"
+               id="employeeId"
+               name="employeeId"
+               placeholder="Enter your employee ID"
+               required #employeeId="ngModel">
+        <div [hidden]="!employeeId.pristine" class="alert alert-danger">Employee ID is required</div>
+      </div>
+
+      <div class="form-group">
+        <label for="startOfHoliday">Start of holiday</label>
+        <input type="text" [(ngModel)]="holiday.startOfHoliday"
+               class="form-control"
+               id="startOfHoliday"
+               name="startOfHoliday"
+               placeholder="Enter the start date of your holiday"
+               required #startOfHoliday="ngModel">
+        <div [hidden]="!startOfHoliday.pristine" class="alert alert-danger">Start of holiday is required</div>
+      </div>
+
+      <div class="form-group">
+        <label for="endOfHoliday">End of holiday</label>
+        <input type="text" [(ngModel)]="holiday.endOfHoliday"
+               class="form-control"
+               id="endOfHoliday"
+               name="endOfHoliday"
+               placeholder="Enter the end date of your holiday"
+               required #endOfHoliday="ngModel">
+        <div [hidden]="!endOfHoliday.pristine" class="alert alert-danger">End of holiday is required</div>
+      </div>
+
+      <button type="submit" [disabled]="!holidayForm.form.valid"
+              class="btn btn-info">Submit</button>
+    </form>
+  </div>
+</div>

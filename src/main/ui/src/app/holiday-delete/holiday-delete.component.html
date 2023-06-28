@@ -1,0 +1,20 @@
+<div class="card my-5">
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #deleteForm="ngForm">
+
+      <div class="form-group">
+        <label for="holidayId">Holiday ID</label>
+        <input type="text" [(ngModel)]="holidayId"
+               class="form-control"
+               id="holidayId"
+               name="holidayId"
+               placeholder="Enter holiday ID"
+               required ="ngModel">
+        <div [hidden]="!holidayId" class="alert alert-danger">ID is required</div>
+      </div>
+
+      <button type="submit" [disabled]="!deleteForm.form.valid"
+              class="btn btn-info">Submit</button>
+    </form>
+  </div>
+</div>

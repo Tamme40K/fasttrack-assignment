@@ -1,0 +1,26 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">Holiday ID</th>
+        <th scope="col">Label</th>
+        <th scope="col">Employee ID</th>
+        <th scope="col">Start date</th>
+        <th scope="col">End date</th>
+        <th scope="col">Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let holiday of holidays">
+        <td>{{ holiday.holidayId }}</td>
+        <td>{{ holiday.label }}</td>
+        <td>{{ holiday.employeeId }}</td>
+        <td>{{ holiday.startOfHoliday }}</td>
+        <td>{{ holiday.endOfHoliday }}</td>
+        <td>{{ holiday.status}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="card my-5">
+<div class="card-body">
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+
+    <div class="form-group">
+      <label for="employeeId">Employee ID</label>
+      <input type="text" [(ngModel)]="employeeId"
+             class="form-control"
+             id="employeeId"
+             name="employeeId"
+             placeholder="{{ employeeId || 'Enter Employee ID' }}"
+             required ="ngModel">
+    </div>
+
+    <button type="submit" [disabled]="!loginForm.form.valid"
+            class="btn btn-info">Submit</button>
+  </form>
+</div>
+</div>

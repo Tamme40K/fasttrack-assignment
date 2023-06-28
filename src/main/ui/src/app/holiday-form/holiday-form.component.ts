@@ -20,7 +20,7 @@ export class HolidayFormComponent {
   }
 
   onSubmit() {
-    this.holidaysService.scheduleHoliday(this.holiday).subscribe(result => this.goToHolidaysList());
+    this.holidaysService.scheduleHoliday(this.holiday).subscribe(() => this.goToHolidaysList());
   }
 
   goToHolidaysList() {
